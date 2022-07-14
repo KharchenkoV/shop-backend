@@ -17,11 +17,12 @@ public class ProductDto {
 	private Long id;
 	private String title;
 	private BigDecimal price;
+	private String image;
 	
 	public static List<ProductDto> fromProductList(List<Product> products) {
 		List<ProductDto> productsDto = new ArrayList<>();
 		for(Product product : products) {
-			ProductDto productDto = new ProductDto(product.getId(), product.getTitle(), product.getPrice());
+			ProductDto productDto = new ProductDto(product.getId(), product.getTitle(), product.getPrice(), product.getImage());
 			productsDto.add(productDto);
 		}
 		return productsDto;
