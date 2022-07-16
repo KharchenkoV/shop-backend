@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class BucketDetails {
 	private String title;
 	private Long productId;
+	private String image;
 	private BigDecimal price;
 	private BigDecimal amount;
 	private Double sum;
@@ -25,5 +26,6 @@ public class BucketDetails {
 		this.price = product.getPrice();
 		this.amount = new BigDecimal(1.0);
 		this.sum = Double.valueOf(product.getPrice().toString());
+		this.image = product.getImage();
 	}
 }

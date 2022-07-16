@@ -83,4 +83,42 @@ public class BucketServiceIml implements BucketService{
 		return bucketDto;
 	}
 
+	@Override
+	public void deleteProductById(Bucket bucket ,Long productId) {
+		List<Product> products = bucket.getProducts();
+		for(Product product : products) {
+			if(product.getId() == productId) {
+				products.remove(product);
+				break;
+			}
+		}
+		bucket.setProducts(products);
+		bucketRepository.save(bucket);
+	}
+
+	@Override
+	public void deleteAllProductsById(Bucket bucket, Long productId) {
+		List<Product> products = bucket.getProducts();
+		products.removeIf(product -> (product.getId() == productId));
+		bucket.setProducts(products);
+		bucketRepository.save(bucket);
+		
+	}
+
+	@Override
+	public void cleanBucketByUsername(String username) {
+		User user = userService.findByUsername(username);
+		if(user == null) {
+			throw new RuntimeException("User not found " + username);
+		}
+		Bucket bucket = user.getBucket();
+		if(bucket == null) {
+			return;
+		} else {
+			bucket.setProducts(null);
+			bucketRepository.save(bucket);
+		}
+		
+	}
+
 }

@@ -34,4 +34,22 @@ public class ProductController {
 		productService.addToUserBucket(id, principal.getName());
 		return ResponseEntity.ok("Product has been added!");
 	}
+	
+	@GetMapping("/{id}/delete/from/bucket")
+	public ResponseEntity<?> deleteFromBucket(@PathVariable Long id, Principal principal){
+		if(principal == null) {
+			return ResponseEntity.ok("You are not authorized!");
+		}
+		productService.deleteFromUserBucket(id, principal.getName());
+		return ResponseEntity.ok("Product has been deleted");
+	}
+	
+	@GetMapping("/{id}/delete/product/from/bucket")
+	public ResponseEntity<?> deleteAllProductFromBucket(@PathVariable Long id, Principal principal){
+		if(principal == null) {
+			return ResponseEntity.ok("You are not authorized!");
+		}
+		productService.deleteAllProductFromBucket(id, principal.getName());
+		return ResponseEntity.ok("Product has been deleted");
+	}
 }

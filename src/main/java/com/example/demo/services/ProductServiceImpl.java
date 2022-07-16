@@ -48,5 +48,35 @@ public class ProductServiceImpl implements ProductService {
 		}
 		
 	}
+	
+	
+	@Override
+	@Transactional
+	public void deleteFromUserBucket(Long productId, String username) {
+		Bucket bucket = loadBucketByUsername(username);
+		if(bucket == null) {
+			return;
+		} else {
+			bucketService.deleteProductById(bucket, productId);
+		}
+	}
+
+	@Override
+	public void deleteAllProductFromBucket(Long productId, String username) {
+		Bucket bucket = loadBucketByUsername(username);
+		if(bucket == null)
+			return;
+		else {
+			bucketService.deleteAllProductsById(bucket, productId);
+		}
+	}
+	
+	private Bucket loadBucketByUsername(String username) {
+		User user = userService.findByUsername(username);
+		if(user == null) {
+			throw new RuntimeException("User not found " + username);
+		}
+		return user.getBucket();
+	}
 
 }

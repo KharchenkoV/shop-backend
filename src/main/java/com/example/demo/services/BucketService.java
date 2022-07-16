@@ -11,5 +11,11 @@ public interface BucketService {
 	
 	void addProducts(Bucket bucket, List<Long> productIds);
 	
+	void deleteProductById(Bucket bucket, Long productId);
+	
+	void deleteAllProductsById(Bucket bucket, Long productId);
+	
+	void cleanBucketByUsername(String username);
+	
 	BucketDto getBucketByUsername(String username);
 }

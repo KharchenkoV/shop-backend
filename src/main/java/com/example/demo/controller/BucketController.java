@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +29,15 @@ public class BucketController {
 			bucketDto = bucketService.getBucketByUsername(principal.getName());
 		}
 		return bucketDto;
+	}
+	
+
+	@GetMapping("/clean")
+	public ResponseEntity<?> cleanBucket(Principal principal) {
+		if(principal == null) {
+			return ResponseEntity.ok("You are not authorized!");
+		}
+		bucketService.cleanBucketByUsername(principal.getName());
+		return ResponseEntity.ok("Bucket has been cleaned!");
 	}
 }
